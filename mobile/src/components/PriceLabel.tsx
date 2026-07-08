@@ -11,7 +11,7 @@ interface Props {
 export function PriceLabel({ price, currency = 'USD', size = 'lg' }: Props) {
   return (
     <Text style={[styles.price, size === 'lg' ? styles.large : styles.small]}>
-      {currency} {price.toFixed(2)}
+      {currency} {Number(price).toFixed(2)}
     </Text>
   );
 }

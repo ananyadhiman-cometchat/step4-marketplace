@@ -34,7 +34,7 @@ function ListingCard({ listing, onPress }: { listing: Listing; onPress: () => vo
       <View style={styles.info}>
         <Text style={styles.title} numberOfLines={2}>{listing.title}</Text>
         <Text style={styles.price}>
-          {listing.currency} {listing.price.toFixed(2)}
+          {listing.currency} {Number(listing.price).toFixed(2)}
         </Text>
         <Text style={styles.seller} numberOfLines={1}>by {listing.seller.name}</Text>
         <View style={styles.categoryBadge}>
