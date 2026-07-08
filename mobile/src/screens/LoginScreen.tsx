@@ -95,7 +95,7 @@ export function LoginScreen() {
         </View>
 
         <Text style={styles.hint}>
-          Test accounts: sara.seller@mkt.test · bob.buyer@mkt.test · alex.admin@mkt.test
+          Test accounts: sara.seller@mkt.io · bob.buyer@mkt.io · alex.admin@mkt.io
           {'\n'}Password: Mkt@seed2026!
         </Text>
       </ScrollView>

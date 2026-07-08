@@ -18,12 +18,12 @@ from app.models.user import User
 SEED_PASSWORD = "Mkt@seed2026!"
 
 USERS = [
-    {"uid": "mkt-adm-001", "name": "Alex Admin", "email": "alex.admin@mkt.test", "role": UserRole.admin},
-    {"uid": "mkt-sel-001", "name": "Sara Seller", "email": "sara.seller@mkt.test", "role": UserRole.seller},
-    {"uid": "mkt-buy-001", "name": "Bob Buyer", "email": "bob.buyer@mkt.test", "role": UserRole.buyer},
-    {"uid": "mkt-mod-001", "name": "Maya Mod", "email": "maya.mod@mkt.test", "role": UserRole.moderator},
-    {"uid": "mkt-buy-002", "name": "Carlos Buyer", "email": "carlos.buyer@mkt.test", "role": UserRole.buyer},
-    {"uid": "mkt-smk-001", "name": "Smoke Bot", "email": "smoke@mkt.test", "role": UserRole.smoke},
+    {"uid": "mkt-adm-001", "name": "Alex Admin", "email": "alex.admin@mkt.io", "role": UserRole.admin},
+    {"uid": "mkt-sel-001", "name": "Sara Seller", "email": "sara.seller@mkt.io", "role": UserRole.seller},
+    {"uid": "mkt-buy-001", "name": "Bob Buyer", "email": "bob.buyer@mkt.io", "role": UserRole.buyer},
+    {"uid": "mkt-mod-001", "name": "Maya Mod", "email": "maya.mod@mkt.io", "role": UserRole.moderator},
+    {"uid": "mkt-buy-002", "name": "Carlos Buyer", "email": "carlos.buyer@mkt.io", "role": UserRole.buyer},
+    {"uid": "mkt-smk-001", "name": "Smoke Bot", "email": "smoke@mkt.io", "role": UserRole.smoke},
 ]
 
 SEED_LISTING_ID = uuid.UUID("00000000-0000-0000-0000-000000000001")

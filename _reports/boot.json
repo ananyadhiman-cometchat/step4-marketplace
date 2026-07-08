@@ -1,21 +1,22 @@
 {
   "useCase": "Marketplace",
   "ucSlug": "mkt",
-  "dockerUp": false,
+  "dockerUp": true,
   "emulatorUp": false,
   "servicesHealthy": [
     {
       "name": "backend",
-      "status": false
+      "status": true,
+      "healthPath": "/api/health"
     },
     {
       "name": "web",
-      "status": false
+      "status": true
     }
   ],
-  "allServicesHealthy": false,
+  "allServicesHealthy": true,
   "loginSmokePassed": false,
   "loginSmokeMethod": "e2e",
   "teardownDone": true,
-  "bootEvidenceTail": "no compose"
+  "bootEvidenceTail": " Network mkt_default Creating \n Network mkt_default Created \n Container mkt-db-1 Creating \n Container mkt-db-1 Created \n Container mkt-backend-1 Creating \n Container mkt-backend-1 Created \n Container mkt-web-1 Creating \n Container mkt-web-1 Created \n Container mkt-db-1 Starting \n Container mkt-db-1 Started \n Container mkt-db-1 Waiting \n Container mkt-db-1 Healthy \n Container mkt-backend-1 Starting \n Container mkt-backend-1 Started \n Container mkt-web-1 Starting \n Container mkt-web-1 Started "
 }

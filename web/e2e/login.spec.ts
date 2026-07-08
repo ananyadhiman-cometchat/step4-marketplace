@@ -4,9 +4,9 @@ const BASE = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'
 
 // Smoke login as each RBAC role and assert the dashboard renders.
 const ROLES = [
-  { email: 'bob.buyer@mkt.test', role: 'buyer', label: 'buyer' },
-  { email: 'sara.seller@mkt.test', role: 'seller', label: 'seller' },
-  { email: 'alex.admin@mkt.test', role: 'admin', label: 'admin' },
+  { email: 'bob.buyer@mkt.io', role: 'buyer', label: 'buyer' },
+  { email: 'sara.seller@mkt.io', role: 'seller', label: 'seller' },
+  { email: 'alex.admin@mkt.io', role: 'admin', label: 'admin' },
 ]
 
 const SEED_PASSWORD = 'Mkt@seed2026!'
@@ -45,15 +45,15 @@ test.describe('Login smoke', () => {
   test('invalid credentials show error', async ({ page }) => {
     await page.goto(`${BASE}/login`)
 
-    await page.getByTestId('email-input').fill('nobody@mkt.test')
+    await page.getByTestId('email-input').fill('nobody@mkt.io')
     await page.getByTestId('password-input').fill('wrongpassword')
     await page.getByTestId('login-submit').click()
 
     // Should stay on login
     await expect(page).toHaveURL(`${BASE}/login`, { timeout: 8_000 })
 
-    // Should show an error toast
-    await expect(page.getByRole('alert')).toBeVisible({ timeout: 5_000 })
+    // Should show an error toast (filter out Next's empty route announcer which also has role=alert)
+    await expect(page.getByRole('alert').filter({ hasText: /\S/ }).first()).toBeVisible({ timeout: 5_000 })
   })
 
   test('unauthenticated user is redirected to login', async ({ page }) => {

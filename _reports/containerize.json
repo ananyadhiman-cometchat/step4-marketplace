@@ -1,0 +1,6 @@
+{
+  "useCase": "Marketplace",
+  "slug": "mkt",
+  "composeCreated": true,
+  "tail": "Created `backend/Dockerfile`, `web/Dockerfile`, and `docker-compose.yml`."
+}
