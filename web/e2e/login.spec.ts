@@ -23,7 +23,7 @@ test.describe('Login smoke', () => {
   })
 
   for (const { email, role, label } of ROLES) {
-    test(`${label} can log in and see the marketplace`, async ({ page }) => {
+    test(`@smoke ${label} can log in and see the marketplace`, async ({ page }) => {
       await page.goto(`${BASE}/login`)
 
       // Fill in credentials
