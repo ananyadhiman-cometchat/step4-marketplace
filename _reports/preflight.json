@@ -1,0 +1,47 @@
+{
+  "useCase": "Marketplace",
+  "slug": "mkt",
+  "ready": true,
+  "missing": [],
+  "byComponent": [
+    {
+      "component": "backend",
+      "kind": "backend",
+      "stack": "Python",
+      "needs": [
+        "python3"
+      ],
+      "missing": []
+    },
+    {
+      "component": "web",
+      "kind": "web",
+      "stack": "Next.js",
+      "needs": [
+        "node",
+        "npm"
+      ],
+      "missing": []
+    },
+    {
+      "component": "mobile",
+      "kind": "mobile",
+      "stack": "React Native (Expo)",
+      "needs": [
+        "adb",
+        "node",
+        "npm",
+        "npx",
+        "xcodebuild"
+      ],
+      "missing": []
+    }
+  ],
+  "workspaceInit": true,
+  "e2eTools": {
+    "maestro": true,
+    "playwright": true
+  },
+  "specGenerated": true,
+  "specFile": "/Users/admin/Desktop/automate/pipeline/requirements/mkt.md"
+}

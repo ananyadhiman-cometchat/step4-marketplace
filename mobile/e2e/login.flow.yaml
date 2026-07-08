@@ -1,0 +1,26 @@
+# Maestro E2E: Login smoke for Marketplace mobile (mkt)
+# Spec: SPEC-PIN · mkt · req:baseline
+# Run: maestro test e2e/login.flow.yaml
+
+appId: com.mkt.mobile
+---
+- launchApp:
+    clearState: true
+
+# Wait for the login screen to appear
+- assertVisible: "Sign in to your account"
+
+# Enter buyer credentials (seed: bob.buyer@mkt.test / Mkt@seed2026!)
+- tapOn:
+    id: "email-input"
+- inputText: "bob.buyer@mkt.test"
+
+- tapOn:
+    id: "password-input"
+- inputText: "Mkt@seed2026!"
+
+# Submit
+- tapOn: "Sign In"
+
+# After login, the Marketplace feed tab should appear
+- assertVisible: "Marketplace"
