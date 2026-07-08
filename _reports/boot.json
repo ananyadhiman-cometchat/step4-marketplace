@@ -1,0 +1,21 @@
+{
+  "useCase": "Marketplace",
+  "ucSlug": "mkt",
+  "dockerUp": false,
+  "emulatorUp": false,
+  "servicesHealthy": [
+    {
+      "name": "backend",
+      "status": false
+    },
+    {
+      "name": "web",
+      "status": false
+    }
+  ],
+  "allServicesHealthy": false,
+  "loginSmokePassed": false,
+  "loginSmokeMethod": "e2e",
+  "teardownDone": true,
+  "bootEvidenceTail": "no compose"
+}
