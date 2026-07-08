@@ -5,12 +5,12 @@ export type AuthStackParamList = {
 export type FeedStackParamList = {
   Feed: undefined;
   ListingDetail: { listingId: string };
-  ConversationThread: { conversationId: string };
+  ConversationThread: { ccUid: string };
 };
 
 export type MessagesStackParamList = {
   ConversationList: undefined;
-  ConversationThread: { conversationId: string };
+  ConversationThread: { ccUid: string };
 };
 
 export type SellStackParamList = {

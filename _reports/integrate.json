@@ -1,0 +1,20 @@
+{
+  "useCase": "Marketplace",
+  "slug": "mkt",
+  "compileExitCode": 0,
+  "reports": [
+    {
+      "component": "backend",
+      "compileExitCode": 0
+    },
+    {
+      "component": "web",
+      "compileExitCode": 0
+    },
+    {
+      "component": "mobile",
+      "compileExitCode": 0
+    }
+  ],
+  "regated": true
+}

@@ -1,3 +1,5 @@
+@import '@cometchat/chat-uikit-react/css-variables.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

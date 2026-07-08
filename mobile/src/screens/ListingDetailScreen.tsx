@@ -46,8 +46,11 @@ export function ListingDetailScreen({ route, navigation }: Props) {
     if (!listing) return;
     setContacting(true);
     try {
-      const conv = await createConversation(listing.id);
-      navigation.navigate('ConversationThread', { conversationId: conv.id });
+      await createConversation(listing.id);
+      // Navigate to the CometChat thread with the seller's namespaced UID
+      navigation.navigate('ConversationThread', {
+        ccUid: `mkt-${listing.seller.uid}`,
+      });
     } catch (err: any) {
       const msg = err?.response?.data?.detail || 'Could not start conversation.';
       Alert.alert('Error', msg);

@@ -1,85 +1,70 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-  Text,
-  Alert,
-} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Platform, StyleSheet, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Conversation, Message } from '../types';
-import { getConversation } from '../api/conversations';
-import { MessageBubble } from '../components/MessageBubble';
-import { ComposerBar } from '../components/ComposerBar';
-import { CallIconButton } from '../components/CallIconButton';
-import { useAuth } from '../context/AuthContext';
-import { theme } from '../context/ThemeContext';
+import { CometChat } from '@cometchat/chat-sdk-react-native';
+import { CometChatCalls } from '@cometchat/calls-sdk-react-native';
+import {
+  CometChatMessageHeader,
+  CometChatMessageList,
+  CometChatMessageComposer,
+  CometChatOngoingCall,
+} from '@cometchat/chat-uikit-react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { MessagesStackParamList } from '../navigation/types';
+import { useCometChatReady } from '../context/CometChatContext';
+import { theme } from '../context/ThemeContext';
 
 type Props = NativeStackScreenProps<MessagesStackParamList, 'ConversationThread'>;
 
-let nextId = 1;
-
 export function ConversationThreadScreen({ route, navigation }: Props) {
-  const { conversationId } = route.params;
-  const { user } = useAuth();
-  const [conversation, setConversation] = useState<Conversation | null>(null);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [loading, setLoading] = useState(true);
-  const listRef = useRef<FlatList>(null);
-
-  const load = useCallback(async () => {
-    try {
-      const conv = await getConversation(conversationId);
-      setConversation(conv);
-
-      navigation.setOptions({
-        title:
-          conv.buyer.uid === user?.uid
-            ? conv.seller.name
-            : conv.buyer.name,
-        headerRight: () => (
-          <View style={{ flexDirection: 'row', gap: 4 }}>
-            <CallIconButton type="audio" onPress={() => handleStartCall('audio')} />
-            <CallIconButton type="video" onPress={() => handleStartCall('video')} />
-          </View>
-        ),
-      });
-    } catch {
-      Alert.alert('Error', 'Could not load conversation.');
-      navigation.goBack();
-    } finally {
-      setLoading(false);
-    }
-  }, [conversationId]);
+  const { ccUid } = route.params;
+  const { isReady } = useCometChatReady();
+  const [ccUser, setCcUser] = useState<CometChat.User | null>(null);
+  const [callSessionId, setCallSessionId] = useState<string | null>(null);
 
   useEffect(() => {
-    load();
-  }, [load]);
+    if (!isReady || !ccUid) return;
+    CometChat.getUser(ccUid)
+      .then((u) => {
+        setCcUser(u);
+        navigation.setOptions({ title: u.getName() });
+      })
+      .catch(() => navigation.goBack());
+  }, [isReady, ccUid]);
 
-  const handleStartCall = (type: 'audio' | 'video') => {
-    Alert.alert(
-      `Start ${type} call`,
-      'Calling is powered by CometChat (integrated in a later phase).',
-      [{ text: 'OK' }]
+  const handleAudioCall = async () => {
+    if (!ccUser) return;
+    try {
+      const call = new CometChat.Call(
+        ccUser.getUid(),
+        CometChat.CALL_TYPE.AUDIO,
+        CometChat.RECEIVER_TYPE.USER,
+      );
+      const initiated = await CometChat.initiateCall(call);
+      setCallSessionId(initiated.getSessionId());
+    } catch (e) {
+      console.error('[CometChat] call initiation failed:', e);
+    }
+  };
+
+  useEffect(() => {
+    if (!isReady || !ccUser) return;
+    const listenerId = `call-${ccUser.getUid()}`;
+    CometChat.addCallListener(
+      listenerId,
+      new CometChat.CallListener({
+        onIncomingCallReceived: () => {},
+        onOutgoingCallAccepted: (call: CometChat.Call) => {
+          setCallSessionId(call.getSessionId());
+        },
+        onOutgoingCallRejected: () => setCallSessionId(null),
+        onIncomingCallCancelled: () => setCallSessionId(null),
+      }),
     );
-  };
+    return () => CometChat.removeCallListener(listenerId);
+  }, [isReady, ccUser]);
 
-  const handleSend = (text: string) => {
-    const msg: Message = {
-      id: nextId++,
-      conversation_id: conversationId,
-      sender_uid: user!.uid,
-      text,
-      type: 'text',
-      sent_at: new Date().toISOString(),
-    };
-    setMessages((prev) => [...prev, msg]);
-    setTimeout(() => listRef.current?.scrollToEnd({ animated: true }), 50);
-  };
-
-  if (loading) {
+  if (!isReady || !ccUser) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
@@ -87,42 +72,47 @@ export function ConversationThreadScreen({ route, navigation }: Props) {
     );
   }
 
-  const isClosed = conversation?.status === 'closed';
-
   return (
     <View style={styles.container}>
-      {conversation && (
-        <View style={styles.contextBanner}>
-          <Text style={styles.contextText} numberOfLines={1}>
-            📦 Listing #{conversation.listing_id.slice(0, 8)}…
-          </Text>
-          <Text style={[
-            styles.statusText,
-            conversation.status === 'flagged' && { color: theme.colors.warning },
-            conversation.status === 'closed' && { color: theme.colors.textMuted },
-          ]}>
-            {conversation.status.toUpperCase()}
-          </Text>
-        </View>
-      )}
-
-      <FlatList
-        ref={listRef}
-        data={messages}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => (
-          <MessageBubble message={item} isMine={item.sender_uid === user?.uid} />
-        )}
-        contentContainerStyle={styles.messageList}
-        ListEmptyComponent={
-          <View style={styles.emptyMessages}>
-            <Text style={styles.emptyText}>No messages yet. Say hello! 👋</Text>
+      <CometChatMessageHeader
+        user={ccUser}
+        onBack={() => navigation.goBack()}
+        showBackButton
+        AuxiliaryButtonView={() => (
+          <View testID="cometchat-call-button">
+            <TouchableOpacity onPress={handleAudioCall} style={styles.callBtn}>
+              <Ionicons name="call-outline" size={22} color={theme.colors.primary} />
+            </TouchableOpacity>
           </View>
-        }
-        onContentSizeChange={() => listRef.current?.scrollToEnd({ animated: false })}
+        )}
       />
 
-      <ComposerBar onSend={handleSend} disabled={isClosed} />
+      <View style={styles.flex} testID="cometchat-message-list">
+        <CometChatMessageList
+          user={ccUser}
+          hideReplyInThreadOption
+        />
+      </View>
+
+      <CometChatMessageComposer
+        user={ccUser}
+        keyboardAvoidingViewProps={
+          Platform.OS === 'android' ? {} : { behavior: 'padding' }
+        }
+      />
+
+      {callSessionId && (
+        <View style={StyleSheet.absoluteFillObject} testID="cometchat-outgoing-call">
+          <CometChatOngoingCall
+            sessionID={callSessionId}
+            callSettingsBuilder={CometChatCalls.CallSettingsBuilder}
+            onError={(e) => {
+              console.error('[CometChat] ongoing call error:', e);
+              setCallSessionId(null);
+            }}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -132,45 +122,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
+  flex: {
+    flex: 1,
+  },
   center: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  contextBanner: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: 8,
-    backgroundColor: '#EEF2FF',
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-  },
-  contextText: {
-    flex: 1,
-    fontSize: theme.typography.sm,
-    color: theme.colors.primary,
-    fontWeight: '500',
-  },
-  statusText: {
-    fontSize: theme.typography.xs,
-    fontWeight: '600',
-    color: theme.colors.success,
-  },
-  messageList: {
-    paddingTop: theme.spacing.sm,
-    paddingBottom: theme.spacing.sm,
-    flexGrow: 1,
-  },
-  emptyMessages: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 60,
-  },
-  emptyText: {
-    fontSize: theme.typography.base,
-    color: theme.colors.textSecondary,
+  callBtn: {
+    padding: 8,
   },
 });

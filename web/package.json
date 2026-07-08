@@ -9,10 +9,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@cometchat/calls-sdk-javascript": "^5.0.1",
+    "@cometchat/chat-uikit-react": "^6.5.3",
+    "axios": "^1.7.2",
     "next": "^14.2.5",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "axios": "^1.7.2"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.45.0",

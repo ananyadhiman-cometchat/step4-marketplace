@@ -1,0 +1,61 @@
+# Maestro E2E: CometChat chat & call flow for Marketplace mobile (mkt)
+# Exercises the REAL CometChat UI Kit (not mocks):
+#   login → open conversation → send message → start call
+# Run: maestro test e2e/chatcall.flow.yaml
+
+appId: com.mkt.mobile
+---
+- launchApp:
+    clearState: true
+
+# ── Step 1: Login as buyer ──────────────────────────────────────────────────
+- assertVisible: "Sign in to your account"
+
+- tapOn:
+    id: "email-input"
+- inputText: "bob.buyer@mkt.test"
+
+- tapOn:
+    id: "password-input"
+- inputText: "Mkt@seed2026!"
+
+- tapOn: "Sign In"
+
+- assertVisible: "Marketplace"
+
+# ── Step 2: Open the Messages / Conversations tab ───────────────────────────
+- tapOn:
+    text: "Messages"
+
+# CometChat conversation list must render
+- assertVisible:
+    id: "cometchat-conversation-list"
+
+# ── Step 3: Tap the seed conversation (Bob → Sara, Vintage Camera) ──────────
+- tapOn: "Sara Seller"
+
+# CometChat message view must be visible
+- assertVisible:
+    id: "cometchat-message-list"
+
+# ── Step 4: Send a message via CometChat composer ───────────────────────────
+# Tap the first TextInput on screen (the CometChat composer input)
+- tapOn:
+    id: "cometchat-message-input"
+
+- inputText: "Hello from Maestro — CometChat E2E"
+
+# Send via the CometChat send button
+- tapOn:
+    id: "cometchat-send-button"
+
+# Sent message must appear in the thread
+- assertVisible: "Hello from Maestro — CometChat E2E"
+
+# ── Step 5: Initiate a call ─────────────────────────────────────────────────
+- tapOn:
+    id: "cometchat-call-button"
+
+# Outgoing call UI must appear (CometChatOngoingCall / ringing screen)
+- assertVisible:
+    id: "cometchat-outgoing-call"

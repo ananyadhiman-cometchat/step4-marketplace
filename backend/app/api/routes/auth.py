@@ -6,6 +6,7 @@ from app.core.security import create_access_token, verify_password
 from app.db.session import get_db
 from app.models.user import User
 from app.schemas.auth import LoginRequest, LoginResponse, UserOut
+from app.services import cometchat as cometchat_service
 
 router = APIRouter()
 
@@ -20,9 +21,13 @@ async def login(body: LoginRequest, db: AsyncSession = Depends(get_db)):
 
     token = create_access_token(subject=user.uid, role=user.role)
 
-    # CometChat auth token is provisioned in a later phase; return empty placeholder.
+    # Ensure this user exists in CometChat (idempotent — 409 is fine on repeated logins).
+    # UIDs are already mkt- prefixed; RBAC role maps to CometChat tags.
+    await cometchat_service.create_user(user.uid, user.name, user.role, user.avatar_url)
+    cc_token = await cometchat_service.create_auth_token(user.uid) or ""
+
     return LoginResponse(
         token=token,
-        cometchat_auth_token="",
+        cometchat_auth_token=cc_token,
         user=UserOut.model_validate(user),
     )

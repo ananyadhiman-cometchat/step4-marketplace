@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRE_MINUTES: int = 1440
 
+    # CometChat — COMETCHAT_API_KEY must be a fullAccess REST API key
+    # (Dashboard → API & Auth Keys → Rest API Keys). Never use the authOnly
+    # Auth Key here; it cannot update/delete users and is client-side only.
     COMETCHAT_APP_ID: str = ""
     COMETCHAT_API_KEY: str = ""
     COMETCHAT_REGION: str = "us"

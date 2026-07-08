@@ -13,11 +13,12 @@ export function Navbar() {
     router.push('/login')
   }
 
-  const navLink = (href: string, label: string) => {
+  const navLink = (href: string, label: string, testId?: string) => {
     const active = pathname === href || (href !== '/' && pathname.startsWith(href))
     return (
       <Link
         href={href}
+        data-testid={testId}
         className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
           active
             ? 'bg-primary-100 text-primary-700'
@@ -46,7 +47,7 @@ export function Navbar() {
             </Link>
 
             {navLink('/', 'Browse')}
-            {navLink('/conversations', 'Messages')}
+            {navLink('/conversations', 'Messages', 'nav-conversations')}
             {hasRole('seller', 'admin') && navLink('/listings/new', 'Sell')}
             {hasRole('admin', 'moderator') && navLink('/admin/moderation', 'Moderation')}
             {hasRole('admin') && navLink('/admin/users', 'Users')}
