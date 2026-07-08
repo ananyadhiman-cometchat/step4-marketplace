@@ -14,6 +14,7 @@ export function CategoryChips({ selected, onSelect }: Props) {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
+      style={styles.scroll}
       contentContainerStyle={styles.container}
     >
       {CATEGORIES.map((cat) => {
@@ -35,11 +36,15 @@ export function CategoryChips({ selected, onSelect }: Props) {
 }
 
 const styles = StyleSheet.create({
+  scroll: {
+    flexGrow: 0,   // don't stretch to fill the column — size to the chips
+  },
   container: {
     paddingHorizontal: theme.spacing.md,
     paddingVertical: theme.spacing.sm,
     gap: 8,
     flexDirection: 'row',
+    alignItems: 'center',   // chips size to content, not stretched vertically
   },
   chip: {
     paddingHorizontal: 14,
