@@ -58,3 +58,21 @@
 }
 .cc-call-overlay > * { pointer-events: auto; }
 .cc-call-overlay:empty { display: none; }
+
+/* Ongoing (connected) call must fill the VIEWPORT (finding F-web-ongoing). The kit renders the
+   ongoing/conference surface at its intrinsic size inside the centered overlay, so the app header
+   shows above and the chat thread bleeds through below the call controls. The kit's ongoing-call
+   element (`.cometchat-ongoing-call`, present on the RECEIVER side) is lifted to a full-bleed
+   fixed layer — viewport-relative regardless of nesting/portal, above the app chrome. Verified
+   full-screen on the callee. (The CALLER's connected view is a different, in-flow container the
+   kit renders below the header; lifting it needs the skill to ship a full-viewport wrapper — see
+   the F-web-ongoing skill ask. Do NOT add an opaque `.cc-call-overlay:not(:empty)` backdrop: the
+   idle overlay isn't reliably `:empty`, so it covers the app and blocks all clicks.) */
+.cometchat-ongoing-call {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  pointer-events: auto;
+}
