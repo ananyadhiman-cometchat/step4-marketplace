@@ -76,7 +76,7 @@ export default function ConversationsPage() {
                 <>
                   {selectedUser && <CometChatMessageHeader user={selectedUser} />}
                   {selectedGroup && <CometChatMessageHeader group={selectedGroup} />}
-                  <div className="flex-1 overflow-hidden min-h-0">
+                  <div className="cc-msg-list">
                     {selectedUser && (
                       <CometChatMessageList
                         user={selectedUser}

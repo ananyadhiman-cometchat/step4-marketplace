@@ -34,12 +34,9 @@
   }
 }
 
-/* CometChat message-list scroll fix — the list must be height-bounded to scroll internally
-   (recurring cometchat-skills gap: mounted list sizes to content + overflow:visible) */
-.cometchat-message-list,
-.cometchat-message-list__scroll,
-.cometchat-list__body {
-  height: 100% !important;
-  max-height: 100% !important;
-  overflow-y: auto !important;
-}
+/* CometChat message-list scroll fix (cometchat-react-patterns skill, Bug 3).
+   (1) wrapper needs EXPLICIT height:100% — flex-grow height is "indefinite" so the kit's
+   injected .cometchat child's height:100% collapses to content height; (2) inline styles
+   can't reach the auto-injected .cometchat child → this CSS child rule is required. */
+.cc-msg-list { flex: 1 1 0; min-height: 0; height: 100%; overflow: hidden; }
+.cc-msg-list > .cometchat { height: 100%; overflow: hidden; }
