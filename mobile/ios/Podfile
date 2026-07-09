@@ -35,6 +35,8 @@ install! 'cocoapods',
 prepare_react_native_project!
 
 target 'Marketplace' do
+  pod 'SPTPersistentCache', :modular_headers => true
+  pod 'DVAssetLoaderDelegate', :modular_headers => true
   use_expo_modules!
   config = use_native_modules!
 

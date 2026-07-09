@@ -1,6 +1,10 @@
 PODS:
   - boost (1.83.0)
+  - cometchat-calls-sdk-react-native (5.0.1):
+    - React-Core
+    - react-native-webrtc
   - DoubleConversion (1.1.6)
+  - DVAssetLoaderDelegate (0.3.3)
   - EXConstants (16.0.2):
     - ExpoModulesCore
   - EXImageLoader (4.7.0):
@@ -47,6 +51,7 @@ PODS:
   - hermes-engine (0.74.2):
     - hermes-engine/Pre-built (= 0.74.2)
   - hermes-engine/Pre-built (0.74.2)
+  - JitsiWebRTC (118.0.0)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -975,7 +980,32 @@ PODS:
   - React-Mapbuffer (0.74.2):
     - glog
     - React-debug
+  - react-native-background-timer (2.4.1):
+    - React-Core
+  - react-native-cometchat-ui-kit (5.3.10):
+    - React-Core
+    - react-native-cometchat-ui-kit/Video (= 5.3.10)
+    - react-native-cometchat-ui-kit/VideoCaching (= 5.3.10)
+  - react-native-cometchat-ui-kit/Video (5.3.10):
+    - React-Core
+  - react-native-cometchat-ui-kit/VideoCaching (5.3.10):
+    - DVAssetLoaderDelegate (~> 0.3.1)
+    - React-Core
+    - react-native-cometchat-ui-kit/Video
+    - SPTPersistentCache (~> 1.1.0)
+  - react-native-netinfo (11.3.1):
+    - React-Core
+  - react-native-performance (6.0.0):
+    - React-Core
   - react-native-safe-area-context (4.10.1):
+    - React-Core
+  - react-native-video (5.2.2):
+    - React-Core
+    - react-native-video/Video (= 5.2.2)
+  - react-native-video/Video (5.2.2):
+    - React-Core
+  - react-native-webrtc (118.0.7):
+    - JitsiWebRTC (~> 118.0.0)
     - React-Core
   - React-nativeconfig (0.74.2)
   - React-NativeModulesApple (0.74.2):
@@ -1208,6 +1238,8 @@ PODS:
     - React-utils (= 0.74.2)
   - RNCAsyncStorage (1.23.1):
     - React-Core
+  - RNCClipboard (1.16.3):
+    - React-Core
   - RNGestureHandler (2.16.2):
     - DoubleConversion
     - glog
@@ -1229,6 +1261,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNLocalize (3.7.0):
+    - React-Core
   - RNReanimated (3.10.1):
     - DoubleConversion
     - glog
@@ -1272,12 +1306,17 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSVG (15.2.0):
+    - React-Core
   - SocketRocket (0.7.0)
+  - SPTPersistentCache (1.1.0)
   - Yoga (0.0.0)
 
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
+  - "cometchat-calls-sdk-react-native (from `../node_modules/@cometchat/calls-sdk-react-native`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - DVAssetLoaderDelegate
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
   - Expo (from `../node_modules/expo`)
@@ -1317,7 +1356,13 @@ DEPENDENCIES:
   - React-jsitracing (from `../node_modules/react-native/ReactCommon/hermes/executor/`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
+  - react-native-background-timer (from `../node_modules/react-native-background-timer`)
+  - "react-native-cometchat-ui-kit (from `../node_modules/@cometchat/chat-uikit-react-native`)"
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-performance (from `../node_modules/react-native-performance`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-video (from `../node_modules/react-native-video`)
+  - react-native-webrtc (from `../node_modules/react-native-webrtc`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -1342,18 +1387,27 @@ DEPENDENCIES:
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
+  - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNLocalize (from `../node_modules/react-native-localize`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
+  - SPTPersistentCache
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - DVAssetLoaderDelegate
+    - JitsiWebRTC
     - SocketRocket
+    - SPTPersistentCache
 
 EXTERNAL SOURCES:
   boost:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
+  cometchat-calls-sdk-react-native:
+    :path: "../node_modules/@cometchat/calls-sdk-react-native"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   EXConstants:
@@ -1431,8 +1485,20 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   React-Mapbuffer:
     :path: "../node_modules/react-native/ReactCommon"
+  react-native-background-timer:
+    :path: "../node_modules/react-native-background-timer"
+  react-native-cometchat-ui-kit:
+    :path: "../node_modules/@cometchat/chat-uikit-react-native"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
+  react-native-performance:
+    :path: "../node_modules/react-native-performance"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
+  react-native-webrtc:
+    :path: "../node_modules/react-native-webrtc"
   React-nativeconfig:
     :path: "../node_modules/react-native/ReactCommon"
   React-NativeModulesApple:
@@ -1481,18 +1547,26 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
+  RNCClipboard:
+    :path: "../node_modules/@react-native-clipboard/clipboard"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNLocalize:
+    :path: "../node_modules/react-native-localize"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
   boost: d3f49c53809116a5d38da093a8aa78bf551aed09
+  cometchat-calls-sdk-react-native: afdff818559a9b29a1099712398559e17a1182b2
   DoubleConversion: 76ab83afb40bddeeee456813d9c04f67f78771b5
+  DVAssetLoaderDelegate: 0caec20e4e08b8560b691131539e9180024d4bce
   EXConstants: 89d35611505a8ce02550e64e43cd05565da35f9a
   EXImageLoader: 1fe96c70cdc78bedc985ec4b1fab5dd8e67dc38b
   Expo: ed0a748eb6be0efd2c3df7f6de3f3158a14464c9
@@ -1506,6 +1580,7 @@ SPEC CHECKSUMS:
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
   hermes-engine: 01d3e052018c2a13937aca1860fbedbccd4a41b7
+  JitsiWebRTC: 3a41671ef65a51d7204323814b055a2690b921c7
   RCT-Folly: 5dc73daec3476616d19e8a53f0156176f7b55461
   RCTDeprecation: b03c35057846b685b3ccadc9bfe43e349989cdb2
   RCTRequired: 194626909cfa8d39ca6663138c417bc6c431648c
@@ -1530,7 +1605,13 @@ SPEC CHECKSUMS:
   React-jsitracing: 00f6151766dec0ab324e2854a9d4dfde0e1f30cc
   React-logger: 70e002e04cc56ff5c12157537405d1644c050703
   React-Mapbuffer: 8d1f0fc6e7280a8ed6da70ece5f283ac5c8032cb
+  react-native-background-timer: 4638ae3bee00320753647900b21260b10587b6f7
+  react-native-cometchat-ui-kit: d00931494b17d50f8b88cc27f01cc12601f6f78e
+  react-native-netinfo: 2e3c27627db7d49ba412bfab25834e679db41e21
+  react-native-performance: 981c27ade5c8b88d28b0e15dbbc720e554300314
   react-native-safe-area-context: 8c70551c8688cd584a53487aa1b9361e991a3b4a
+  react-native-video: ca03eab980865b0dc199c3235f94dcb0417cb5a6
+  react-native-webrtc: eb8582f60b91e8883c290425bf1676c4bcedd63d
   React-nativeconfig: 9f223cd321823afdecf59ed00861ab2d69ee0fc1
   React-NativeModulesApple: 1cd770ed7dc463e55d02a05f7fc3be46076d393e
   React-perflogger: 32ed45d9cee02cf6639acae34251590dccd30994
@@ -1555,12 +1636,16 @@ SPEC CHECKSUMS:
   React-utils: 08bb648cea0f37a0aa5df0c4f9ef50e5484ee0eb
   ReactCommon: 4968ff446d467c4def1945125e59f82e3e986af3
   RNCAsyncStorage: aa75595c1aefa18f868452091fa0c411a516ce11
+  RNCClipboard: f6679d470d0da2bce2a37b0af7b9e0bf369ecda5
   RNGestureHandler: 326e35460fb6c8c64a435d5d739bea90d7ed4e49
+  RNLocalize: 5b24342fb7288242c2215756412d8dcb8dadf31e
   RNReanimated: def444e044c354f38bb0a5926a8583ba19d944c1
   RNScreens: a2d8a2555b4653d7a19706eb172f855657ac30d7
+  RNSVG: 0e7deccab0678200815104223aadd5ca734dd41d
   SocketRocket: abac6f5de4d4d62d24e11868d7a2f427e0ef940d
+  SPTPersistentCache: df36ea46762d7cf026502bbb86a8b79d0080dff4
   Yoga: ae3c32c514802d30f687a04a6a35b348506d411f
 
-PODFILE CHECKSUM: 2866dd3a8c7e12b835589cc3e140002951d298f8
+PODFILE CHECKSUM: 2148d25c908089cbc5306d3148b1aabcf8811ec8
 
 COCOAPODS: 1.16.2

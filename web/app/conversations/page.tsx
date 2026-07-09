@@ -71,12 +71,12 @@ export default function ConversationsPage() {
             </div>
 
             {/* Message panel */}
-            <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex-1 flex flex-col overflow-hidden min-h-0">
               {selectedUser || selectedGroup ? (
                 <>
                   {selectedUser && <CometChatMessageHeader user={selectedUser} />}
                   {selectedGroup && <CometChatMessageHeader group={selectedGroup} />}
-                  <div className="flex-1 overflow-hidden">
+                  <div className="flex-1 overflow-hidden min-h-0">
                     {selectedUser && (
                       <CometChatMessageList
                         user={selectedUser}
