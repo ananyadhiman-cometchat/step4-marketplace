@@ -9,6 +9,7 @@ import { AuthProvider } from './src/context/AuthContext';
 import { ThemeProvider } from './src/context/ThemeContext';
 import { CometChatProvider } from './src/context/CometChatContext';
 import { RootNavigator } from './src/navigation/RootNavigator';
+import { CallSurfaces } from './src/components/CallSurfaces';
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
               <AuthProvider>
                 <CometChatProvider>
                   <RootNavigator />
+                  <CallSurfaces />
                   <StatusBar style="auto" />
                 </CometChatProvider>
               </AuthProvider>
