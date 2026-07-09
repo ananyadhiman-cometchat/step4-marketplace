@@ -33,3 +33,13 @@
     @apply block text-sm font-medium text-gray-700 mb-1;
   }
 }
+
+/* CometChat message-list scroll fix — the list must be height-bounded to scroll internally
+   (recurring cometchat-skills gap: mounted list sizes to content + overflow:visible) */
+.cometchat-message-list,
+.cometchat-message-list__scroll,
+.cometchat-list__body {
+  height: 100% !important;
+  max-height: 100% !important;
+  overflow-y: auto !important;
+}
