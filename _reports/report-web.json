@@ -1,9 +1,0 @@
-{
-  "component": "web",
-  "kind": "web",
-  "stack": "Next.js",
-  "compileExitCode": 0,
-  "tokens": 40837,
-  "hitMaxTurns": false,
-  "tail": "\nRoute (app)                              Size     First Load JS\n\u250c \u0192 /                                    4.6 kB          125 kB\n\u251c \u0192 /_not-found                          137 B          87.5 kB\n\u251c \u0192 /admin/moderation                    3.78 kB         124 kB\n\u251c \u0192 /admin/users                         3.75 kB         124 kB\n\u251c \u0192 /conversations                       2.02 kB        1.44 MB\n\u251c \u0192 /conversations/[id]                  2.84 kB        1.46 MB\n\u251c \u0192 /listings/[id]                       3.94 kB         124 kB\n\u251c \u0192 /listings/[id]/edit                  917 B           125 kB\n\u251c \u0192 /listings/new                        534 B           124 kB\n\u2514 \u0192 /login                               2.65 kB         114 kB\n+ First Load JS shared by all            87.4 kB\n  \u251c chunks/117-cf7332866ccd3822.js       31.7 kB\n  \u251c chunks/fd9d1056-ae97a97996823271.js  53.7 kB\n  \u2514 other shared chunks (total)          1.99 kB\n\n\n\u0192  (Dynamic)  server-rendered on demand\n"
-}

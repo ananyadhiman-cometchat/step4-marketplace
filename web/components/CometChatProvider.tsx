@@ -100,10 +100,10 @@ export function CometChatProvider({ children }: { children: ReactNode }) {
     <CometChatContext.Provider value={{ isReady }}>
       {children}
       {isReady && (
-        <>
+        <div className="cc-call-overlay">
           <CometChatIncomingCall />
           <CometChatOutgoingCall />
-        </>
+        </div>
       )}
     </CometChatContext.Provider>
   )

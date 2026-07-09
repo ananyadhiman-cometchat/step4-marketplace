@@ -40,3 +40,21 @@
    can't reach the auto-injected .cometchat child → this CSS child rule is required. */
 .cc-msg-list { flex: 1 1 0; min-height: 0; height: 100%; overflow: hidden; }
 .cc-msg-list > .cometchat { height: 100%; overflow: hidden; }
+
+/* Incoming/Outgoing call overlay (cometchat-react-calls skill, finding F-web-call).
+   The prebuilt CometChatIncomingCall/OutgoingCall self-listen (Standard mode) but render
+   as bare banners in normal document flow → they land bottom-left instead of ringing over
+   the app. Wrap in a fixed, full-viewport centered layer so the ring is a proper modal.
+   pointer-events:none keeps the (empty) layer click-through when no call is active; the
+   kit's own child re-enables pointer events on the rendered widget. */
+.cc-call-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.cc-call-overlay > * { pointer-events: auto; }
+.cc-call-overlay:empty { display: none; }

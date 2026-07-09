@@ -1,9 +1,0 @@
-{
-  "component": "backend",
-  "kind": "backend",
-  "stack": "Python",
-  "compileExitCode": 0,
-  "tokens": 14474,
-  "hitMaxTurns": false,
-  "tail": "#22 DONE 3.8s\n\n#23 [backend] resolving provenance for metadata file\n#23 DONE 0.0s\n\n#24 [web] exporting to image\n#24 exporting layers 9.4s done\n#24 exporting manifest sha256:b0aa568f9e3da4d3cec799f153973b09977faafef18a2f9157d0c1b7300f2730 done\n#24 exporting config sha256:f62869ccbada817ef6d09b780be6021a8c711aa893a09b72ccad9c10ab91f890 done\n#24 exporting attestation manifest sha256:321d81fe7bbe7dc0105a6177d8daa99333b40a8c906dee0738ba18d5599f9884 done\n#24 exporting manifest list sha256:3996195007f134d41fc5b384b31ae2f964cbb03fa7cb2d024b8311beb4e57d4f done\n#24 naming to docker.io/library/mkt-web:latest done\n#24 unpacking to docker.io/library/mkt-web:latest\n#24 unpacking to docker.io/library/mkt-web:latest 2.8s done\n#24 DONE 12.2s\n\n#25 [web] resolving provenance for metadata file\n#25 DONE 0.0s\n Image mkt-backend Built \n Image mkt-web Built "
-}
