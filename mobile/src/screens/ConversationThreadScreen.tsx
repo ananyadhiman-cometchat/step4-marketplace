@@ -105,7 +105,7 @@ export function ConversationThreadScreen({ route, navigation }: Props) {
         <View style={StyleSheet.absoluteFillObject} testID="cometchat-outgoing-call">
           <CometChatOngoingCall
             sessionID={callSessionId}
-            callSettingsBuilder={CometChatCalls.CallSettingsBuilder}
+            callSettingsBuilder={new CometChatCalls.CallSettingsBuilder().setIsAudioOnlyCall(true)}
             onError={(e) => {
               console.error('[CometChat] ongoing call error:', e);
               setCallSessionId(null);
